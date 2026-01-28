@@ -1,0 +1,244 @@
+# 📂 ESTRUCTURA DEL PROYECTO
+
+## 📁 Archivos para Deploy
+
+```
+tu-repositorio/
+│
+├── dark_neon_server_clean.py   ← Archivo principal del servidor
+├── requirements.txt             ← Dependencias Python
+├── Procfile                     ← Configuración para Render/Heroku
+├── .gitignore                   ← Archivos a ignorar en Git
+└── README.md                    ← Documentación
+```
+
+## 📝 Descripción de Archivos
+
+### `dark_neon_server_clean.py`
+
+**Servidor principal** sin NOA666
+
+Incluye:
+- ✅ Sistema de claves
+- ✅ Panel admin
+- ✅ Live Gore (NOA999)
+- ✅ YT-DLP
+- ✅ TikWM
+- ✅ Scraper gore
+- ❌ **NO incluye** NOA666 (Global Gore)
+- ❌ **NO incluye** búsqueda instantánea
+
+**Puerto**: Lee variable de entorno `PORT` (para Render)
+
+### `requirements.txt`
+
+Dependencias necesarias:
+
+```
+yt-dlp
+requests
+beautifulsoup4
+```
+
+### `Procfile`
+
+Comando para iniciar en Render/Heroku:
+
+```
+web: python dark_neon_server_clean.py
+```
+
+### `.gitignore`
+
+Archivos que NO se suben al repositorio:
+
+```
+__pycache__/
+*.pyc
+media/
+*.mp4
+*.mp3
+server_config.json
+```
+
+### `README.md`
+
+Documentación del proyecto
+
+---
+
+## 🚀 Pasos para Deploy
+
+### 1. Crear Repositorio Local
+
+```bash
+mkdir dark-neon-server
+cd dark-neon-server
+
+# Copiar archivos
+cp dark_neon_server_clean.py .
+cp requirements.txt .
+cp Procfile .
+cp .gitignore .
+cp README_DEPLOY.md README.md
+```
+
+### 2. Inicializar Git
+
+```bash
+git init
+git add .
+git commit -m "Initial commit - Dark Neon Server"
+```
+
+### 3. Subir a GitHub
+
+```bash
+# Crear repo en GitHub primero, luego:
+git remote add origin https://github.com/TU-USUARIO/dark-neon-server.git
+git branch -M main
+git push -u origin main
+```
+
+### 4. Deploy en Render
+
+1. Ir a [render.com](https://render.com)
+2. Login con GitHub
+3. **New +** → **Web Service**
+4. Conectar repositorio
+5. Configurar:
+   - Name: `dark-neon-server`
+   - Environment: `Python 3`
+   - Build: `pip install -r requirements.txt`
+   - Start: `python dark_neon_server_clean.py`
+6. **Create Web Service**
+
+---
+
+## ⚙️ Configuración Render
+
+### Variables de Entorno
+
+No es necesario agregar `PORT`, Render lo asigna automáticamente.
+
+### Plan
+
+- **Free Tier**: Suficiente para este proyecto
+- Se apaga después de 15 min sin uso
+- Reinicia automáticamente al recibir petición
+
+---
+
+## 📊 Diferencias entre Versiones
+
+| Archivo | NOA666 | Búsqueda | Deploy |
+|---------|--------|----------|--------|
+| `dark_neon_server_INSTANT.py` | ✅ | ✅ | ❌ Bug |
+| `dark_neon_server_FIXED.py` | ✅ | ✅ | ❌ Complejo |
+| `dark_neon_server_OPTIMIZED.py` | ❌ | ❌ | ✅ |
+| **`dark_neon_server_clean.py`** | **❌** | **❌** | **✅** |
+
+---
+
+## 🎯 Características Removidas
+
+Para simplificar y optimizar:
+
+- ❌ **NOA666** (Global Gore Network)
+- ❌ **Búsqueda instantánea**
+- ❌ **APIs de video** (YouTube search, Dailymotion, etc.)
+- ❌ **Sistema de caché global**
+
+---
+
+## ✅ Características Mantenidas
+
+- ✅ Panel de usuario (DEMO2026, TERROR, NEON)
+- ✅ Panel de administración (INTEGER)
+- ✅ Live Gore Gallery (NOA999)
+- ✅ Subida de archivos desde PC
+- ✅ YT-DLP (descargar de YouTube, Instagram, etc.)
+- ✅ TikWM (descargar de TikTok)
+- ✅ Scraper de sitios gore
+- ✅ Descarga protegida (NOA)
+- ✅ Streaming optimizado
+- ✅ UI terror/neón
+
+---
+
+## 🔑 Claves de Acceso
+
+| Clave | Función |
+|-------|---------|
+| `DEMO2026`, `TERROR`, `NEON` | Usuario normal |
+| `INTEGER` | Administrador |
+| `NOA999` | Live Gore Gallery |
+| `NOA` | Descargar archivos |
+| ~~`NOA666`~~ | ~~Removido~~ |
+
+---
+
+## 📝 Cambios en el Código
+
+### Puerto Dinámico:
+
+```python
+# ANTES:
+PORT = 8000
+
+# AHORA:
+PORT = int(os.environ.get('PORT', 8000))
+```
+
+### Bind Address:
+
+```python
+# Ya estaba correcto:
+server = HTTPServer(('0.0.0.0', PORT), DarkNeonHandler)
+```
+
+---
+
+## 🐛 Troubleshooting
+
+### Build falla en Render:
+
+```bash
+# Verificar que requirements.txt existe
+cat requirements.txt
+
+# Debe contener:
+yt-dlp
+requests
+beautifulsoup4
+```
+
+### Servidor no inicia:
+
+```bash
+# Verificar Procfile
+cat Procfile
+
+# Debe contener:
+web: python dark_neon_server_clean.py
+```
+
+### Puerto incorrecto:
+
+```python
+# El código debe tener:
+PORT = int(os.environ.get('PORT', 8000))
+```
+
+---
+
+## 📞 Notas Importantes
+
+1. **Archivos temporales**: Se borran al reiniciar en Render
+2. **Primera carga**: Puede tardar ~30 segundos
+3. **Inactividad**: Se apaga después de 15 minutos
+4. **Almacenamiento**: Usar servicio externo para persistencia
+
+---
+
+¡Listo para deploy! 🚀
